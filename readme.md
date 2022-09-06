@@ -10,3 +10,7 @@ To start out, we made a few Conditional Designs with pen and paper. This helped 
 To get back into coding visuals, I started to draw some simple shapes with Three.js
 {% raw %}
 <iframe src="content/day01/shapes/index.html" width="100%" height="450" frameborder="no"></iframe> {% endraw %}
+
+Then I created a little spinning grid of random blocks.
+{% raw %}
+<iframe src="content/day01/BlockyGrid/index.html" width="100%" height="450" frameborder="no"></iframe> {% endraw %}

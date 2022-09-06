@@ -17,7 +17,7 @@ Then I created a little spinning grid of random blocks.
 
 
 
-#Day 02 - Grids
+# Day 02 - Grids
 
 I first searched for inspiration on the internet. Then I started to create a grid out of cubes. Those cubes I then stretched to create different heights.
 Then I positioned the camera at an isometric point of view and changed it to an ortographic projection to create that look.

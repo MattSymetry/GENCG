@@ -10,15 +10,15 @@ class CustomOutlinePass extends Pass {
 
 		this.renderScene = scene;
 		this.renderCamera = camera;
-		this.resolution = new THREE.Vector2(resolution.x, resolution.y);
+		this.resolution = new THREE.Vector2(resolution.x+1, resolution.y+1);
 
 		this.fsQuad = new FullScreenQuad(null);
 		this.fsQuad.material = this.createOutlinePostProcessMaterial();
 
 		// Create a buffer to store the normals of the scene onto
 		const normalTarget = new THREE.WebGLRenderTarget(
-			this.resolution.x,
-			this.resolution.y
+			this.resolution.x+1,
+			this.resolution.y+1
 		);
 		normalTarget.texture.format = THREE.RGBAFormat;
 		normalTarget.texture.minFilter = THREE.NearestFilter;
@@ -213,15 +213,15 @@ class CustomOutlinePass extends Pass {
 				normalBuffer: {},
 				outlineColor: { value: new THREE.Color(0x000000) },
 				//4 scalar values packed in one uniform: depth multiplier, depth bias, and same for normals.
-				multiplierParameters: { value: new THREE.Vector4(0.81, 1, 1, 0.3) },
+				multiplierParameters: { value: new THREE.Vector4(0.91, 1, 1, 0.3) },
 				cameraNear: { value: this.renderCamera.near },
 				cameraFar: { value: this.renderCamera.far },
 				screenSize: {
 					value: new THREE.Vector4(
-						this.resolution.x,
-						this.resolution.y,
-						1 / this.resolution.x,
-						1 / this.resolution.y
+						this.resolution.x+1,
+						this.resolution.y+1,
+						1 / (this.resolution.x+1),
+						1 / (this.resolution.y+1)
 					),
 				},
 			},

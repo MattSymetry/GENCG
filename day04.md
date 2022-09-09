@@ -8,3 +8,11 @@ On the left half of the screen, you can see the first person view in which you a
 
 {% raw %}
 <iframe src="content/day04/flyToDraw/index.html" width="100%" height="450" frameborder="no"></iframe> {% endraw %}
+
+## Examples
+
+Here are some quick examples on what can be done:
+
+![Example Image](content/day04/img1.png)
+![Example Image](content/day04/img2.png)
+![Example Image](content/day04/img3.png)

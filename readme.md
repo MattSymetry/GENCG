@@ -5,10 +5,10 @@ Here you can find all the small projects I made during this class. Most of them 
 
 ## Content
 
-- [Day 01 - Getting back into it](notes/day01)
-- [Day 02 - Grids](notes/day02)
-- [Day 03 - Clock / Time](notes/day03)
-- [Day 04 - Drawing machine](notes/day04)
+- [Day 01 - Getting back into it](https://mattsymetry.github.io/GENCG/day01.html)
+- [Day 02 - Grids](https://mattsymetry.github.io/GENCG/day02.html)
+- [Day 03 - Clock / Time](https://mattsymetry.github.io/GENCG/day03.html)
+- [Day 04 - Drawing machine](https://mattsymetry.github.io/GENCG/day04.html)
 
 ## Tools
 

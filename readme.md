@@ -1,9 +1,6 @@
-# Generative Computer Graphics - Fall 2022
+# Intro
 
-
-## Intro
-
-This is the documentation of the `generative computer graphics` class of Mattia Metry.
+This is the documentation of the `Generative Computer Graphics` class of Mattia Metry.
 Here you can find all the small projects I made during this class. Most of them are just sort of proof of concepts and in no way or form a final product. The projects are a nice starting point for future work.
 
 ## Content

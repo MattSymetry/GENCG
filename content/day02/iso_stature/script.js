@@ -13,22 +13,23 @@ function createScene(THREE, sce, cam) {
     for (let i = 0; i<30; i++) {
         let rnd = Math.random();
         let leftover;
-        let negative = (Math.random() < 0.5) ? -1 : 1;
-        if (rnd < 0.35) {
+        let negative = (Math.random() < 0.5) ? -1 : 1; // Negative direction
+        if (rnd < 0.35) { // go in x-direction
             direction = new THREE.Vector3(2+Math.ceil(Math.random() * stretch),1,1);
             currPos = new THREE.Vector3(currPos.x + (direction.x/2+0.5)*negative, currPos.y +1*negative, currPos.z+1*negative);
             leftover = new THREE.Vector3(direction.x/2-0.5, 0,0);
         }
-        else if (rnd < 0.7) {
+        else if (rnd < 0.7) { // go in y-direction
             direction = new THREE.Vector3(1,Math.ceil(2+Math.random() * stretch),1);
             currPos = new THREE.Vector3(currPos.x +1*negative,currPos.y + (direction.y/2+0.5)*negative, currPos.z+1*negative);
             leftover = new THREE.Vector3(0,direction.y/2-0.5,0);
         }
-        else {
+        else { // go in z-direction
             direction = new THREE.Vector3(1,1,Math.ceil(2+Math.random() * stretch));
             currPos = new THREE.Vector3(currPos.x +1*negative, currPos.y+1*negative, currPos.z + (direction.z/2+0.5)*negative);
             leftover = new THREE.Vector3(0,0,direction.z/2-0.5);
         }
+        // create and add cube to scene
         let geometry = new THREE.BoxGeometry(direction.x, direction.y, direction.z)
         let cube = new THREE.Mesh( geometry, material );
         cube.position.set(currPos.x, currPos.y, currPos.z);
@@ -50,11 +51,8 @@ function createScene(THREE, sce, cam) {
         if (currPos.z > maxPos.z) maxPos.z = currPos.z;
 
     }
-    console.log(minPos)
-    console.log(maxPos)
     let camCorrection = minPos.add(maxPos);
     camCorrection.divideScalar(2)
-        
     camCorrection.multiplyScalar(1)
     console.log(camCorrection)
     camera.position.set(camCorrection.x+20, camCorrection.y+20, camCorrection.z+20);

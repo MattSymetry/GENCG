@@ -1,0 +1,223 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Mattia Metry - GENCG</title>
+    <link rel="stylesheet" href="../../../template_three/style/style.css">
+</head>
+
+<body>
+    <script src="script.js"></script>
+    <script src="../../../template_three/js/three/three.js"></script>
+    <script src="../../../template_three/js/three/stats.min.js"></script>
+    <script src="../../../template_three/js/three/OrbitControls.js"></script>
+    <script src="../../../template_three/js/rendering/customRenderer.js"></script>
+    <script src="../../../template_three/js/rendering/customToonMaterial.js"></script>
+    <script src="../../../template_three/js/rendering/customColorsMaterial.js"></script>
+    <script src="../../../template_three/js/tween/tween.umd.js"></script>
+    <div id="joyDiv"></div>
+    <script type="module">
+        import { EffectComposer } from '../../../template_three/js/three/EffectComposer.js';
+        import { RenderPass } from '../../../template_three/js/three/RenderPass.js';
+        import { ShaderPass } from '../../../template_three/js/three/ShaderPass.js';
+        import { FXAAShader } from "../../../template_three/js/three/FXAAShader.js";
+        import { CustomOutlinePass } from '../../../template_three/js/rendering/customPostProcess.js';
+        let camera;
+        let myCam;
+        // Movement
+        let speed = 4;
+        let rotationSpeed = 2;
+        let pressW = false;
+        let pressA = false;
+        let pressS = false;
+        let pressD = false;
+        let dropDots = false;
+        document.addEventListener('keydown', function(e){
+            if(e.key === 'w' || e.keyCode == '38') {pressW = true;}
+            if(e.key === 'a' || e.keyCode == '37') {pressA = true;}
+            if(e.key === 's' || e.keyCode == '40') {pressS = true;}
+            if(e.key === 'd' || e.keyCode == '39') {pressD = true;}
+            if(e.key === ' ' || e.keyCode == '32') {dropDots = true;}
+        })
+        document.addEventListener('keyup', function(e){
+            if(e.key === 'w' || e.keyCode == '38') {pressW = false;}
+            if(e.key === 'a' || e.keyCode == '37') {pressA = false;}
+            if(e.key === 's' || e.keyCode == '40') {pressS = false;}
+            if(e.key === 'd' || e.keyCode == '39') {pressD = false;}
+            if(e.key === ' ' || e.keyCode == '32') {dropDots = false;}
+        })
+      
+        let camPos = {
+            coords : new THREE.Vector3(0, -25, 25),
+            direction : new THREE.Vector3(0, 0, -1)
+        }
+        const yAxies = new THREE.Vector3(0, 1, 0)
+        let windowWidth = window.innerWidth;
+		let windowHeight = window.innerHeight;
+
+        // Setup
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xECC5FB);
+        const renderer = customRenderer(THREE, camera, scene);
+        const stats = createStats();
+        document.body.appendChild(renderer.domElement);
+        document.body.appendChild(stats.domElement);
+
+        //Camers
+        let controls;
+        const views = [
+            {
+                left: 0,
+                bottom: 0,
+                width: 0.5,
+                height: 1.0,
+                background: new THREE.Color( 0, 0, 0 ),
+                eye: [ 0, 0, 25],
+                updateCamera: function ( camera, scene ) {
+
+                    camera.position.set(camPos.coords.x, camPos.coords.y, camPos.coords.z);
+
+                }
+            },
+            {
+                left: 0.5,
+                bottom: 0,
+                width: 0.5,
+                height: 1.0,
+                background: new THREE.Color( 0.7, 0.5, 0.5 ),
+                eye: [ 0, 55, 55],
+                updateCamera: function ( camera, scene ) {
+                }
+            }
+		];
+        for ( let ii = 0; ii < views.length; ++ ii ) {
+
+            const view = views[ ii ];
+            camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 200 );
+            camera.position.fromArray( view.eye );
+            camera.rotation.order = 'YXZ';
+            view.camera = camera;
+
+            if (ii == 0) {
+                myCam = camera
+            }
+            else {
+                controls = new THREE.OrbitControls( camera, renderer.domElement );
+                camera.lookAt(new THREE.Vector3(0,-25,0))
+                controls.update();
+            }
+        }
+
+        // Objects
+        const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
+        directionalLight.position.set(20, 100,10)
+        scene.add( directionalLight );
+
+        createScene(THREE, scene, camera);
+
+        // Animate
+        let now = Date.now();
+        let prev;
+        let deltaTime;
+        let angle;
+        let i = 0;
+        const geometry = new THREE.SphereGeometry( 0.5, 8, 4 );
+        const geometryy = new THREE.BoxGeometry( 1, 1, 1 );
+        let material = customColorsMaterial(THREE, [new THREE.Vector4(1.0,0.158,0.883,0.0), new THREE.Vector4(0.3,0.707,0.907,1.0)]);
+        const materialL = new THREE.LineBasicMaterial({color: 0xffffff});
+
+        function animate() {
+            requestAnimationFrame(animate);
+            prev = now;
+            now = Date.now();
+            deltaTime = (now - prev) / 1000;
+            myCam.getWorldDirection( camPos.direction );
+            camPos.direction.normalize();
+
+            camPos.coords.addVectors(camPos.coords, camPos.direction.multiplyScalar(deltaTime*speed));
+            if (camPos.coords.x > 25) camPos.coords.x = 25;
+            if (camPos.coords.y > 25) camPos.coords.y = 25;
+            if (camPos.coords.z > 25) camPos.coords.z = 25;
+            if (camPos.coords.x < -25) camPos.coords.x = -25;
+            if (camPos.coords.y < -25) camPos.coords.y = -25;
+            if (camPos.coords.z < -25) camPos.coords.z = -25;
+            
+            if (pressW) {
+                angle = Math.PI / 4 * deltaTime * rotationSpeed;
+                myCam.rotation.x += angle;
+            }
+            if (pressS) {
+                angle = Math.PI / 4 * deltaTime * rotationSpeed;
+                myCam.rotation.x -= angle;
+            }
+
+            if (pressA) {
+                angle = Math.PI / 4 * deltaTime * rotationSpeed;
+                myCam.rotation.y += angle;
+            }
+            if (pressD) {
+                angle = Math.PI / 4 * deltaTime * rotationSpeed;
+                myCam.rotation.y -= angle;
+            }
+
+            if (dropDots) {
+                let sphere = new THREE.Mesh( geometry, material );
+                sphere.position.set(camPos.coords.x, camPos.coords.y, camPos.coords.z)
+                scene.add( sphere );
+            }
+
+            for ( let ii = 0; ii < views.length; ++ ii ) {
+
+                const view = views[ ii ];
+                const camera = view.camera;
+
+                view.updateCamera( camera, scene );
+
+                const left = Math.floor( windowWidth * view.left );
+                const bottom = Math.floor( windowHeight * view.bottom );
+                const width = Math.floor( windowWidth * view.width );
+                const height = Math.floor( windowHeight * view.height );
+
+                renderer.setViewport( left, bottom, width, height );
+                renderer.setScissor( left, bottom, width, height );
+                renderer.setScissorTest( true );
+                renderer.setClearColor( view.background );
+
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+
+                controls.update();
+                renderer.render( scene, camera );
+
+                }
+            stats.update();
+        };
+        animate();
+
+        // Reaize
+        window.addEventListener('resize', function (event) {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth + 1, window.innerHeight + 1);
+
+            renderer.setSize(window.innerWidth + 1, window.innerHeight + 1);
+            composer.setSize(window.innerWidth + 1, window.innerHeight + 1);
+            //effectFXAA.setSize(window.innerWidth + 1, window.innerHeight + 1);
+            customOutline.setSize(window.innerWidth + 1, window.innerHeight + 1);
+        }, true);
+
+        // FPS
+        function createStats() {
+            let stats = new Stats();
+            stats.setMode(0);
+
+            stats.domElement.style.position = 'absolute';
+            stats.domElement.style.left = '0';
+            stats.domElement.style.top = '0';
+
+            return stats;
+        }
+    </script>
+</body>
+
+</html>

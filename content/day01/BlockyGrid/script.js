@@ -8,7 +8,6 @@ function createScene(THREE, scene) {
         for(let y = -10; y <= 10; y++) {
             let cube = new THREE.Mesh( new THREE.BoxGeometry(0.7,0.7,Math.random()*10), (Math.random() > 0.5) ? material : materialBlue );
             cube.position.set(x,y,0);
-            //cube.rotation.z = Math.random();
             cubes.push(cube);
             scene.add( cube );
         }

@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Mattia Metry - GENCG</title>
+    <link rel="stylesheet" href="../../../template_three/style/style.css">
+</head>
+
+<body>
+    <script src="script.js"></script>
+    <script src="../../../template_three/js/three/three.js"></script>
+    <script src="../../../template_three/js/three/stats.min.js"></script>
+    <script src="../../../template_three/js/three/OrbitControls.js"></script>
+    <script src="../../../template_three/js/three/MeshLine.js"></script>
+    <script src="../../../template_three/js/rendering/customRenderer.js"></script>
+    <script src="../../../template_three/js/rendering/customToonMaterial.js"></script>
+    <script src="../../../template_three/js/rendering/customColorsMaterial.js"></script>
+    <script src="../../../template_three/js/tween/tween.umd.js"></script>
+    <div id="joyDiv"></div>
+    <script type="module">
+        import { EffectComposer } from '../../../template_three/js/three/EffectComposer.js';
+        import { RenderPass } from '../../../template_three/js/three/RenderPass.js';
+        import { ShaderPass } from '../../../template_three/js/three/ShaderPass.js';
+        import { FXAAShader } from "../../../template_three/js/three/FXAAShader.js";
+        import { CustomOutlinePass } from '../../../template_three/js/rendering/customPostProcess.js';
+
+        // Setup
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x000000);
+        const camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 10000 );
+        const renderer = customRenderer(THREE, camera, scene);
+        const stats = createStats();
+        const controls = new THREE.OrbitControls( camera, renderer.domElement );
+        camera.position.set(0,2000,2000);
+        camera.lookAt(new THREE.Vector3(0,0,0))
+        controls.update();
+
+        document.body.appendChild(renderer.domElement);
+        document.body.appendChild(stats.domElement);
+
+        // Objects
+        const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
+        directionalLight.position.set(0, 10000, 0)
+        scene.add( directionalLight );
+
+       createScene(THREE, scene, camera);
+
+        // Animate
+        let now;
+        let prev;
+        let deltaTime;
+        let angle;
+        let i = 0;
+        function animate() {
+            requestAnimationFrame(animate);
+            prev = now;
+            now = Date.now();
+            deltaTime = (now - prev) / 1000;
+
+            myAnimation();
+
+            controls.update();
+            renderer.render( scene, camera );
+            stats.update();
+        };
+        animate();
+
+        // Reaize
+        window.addEventListener('resize', function (event) {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth + 1, window.innerHeight + 1);
+
+            renderer.setSize(window.innerWidth + 1, window.innerHeight + 1);
+            //composer.setSize(window.innerWidth + 1, window.innerHeight + 1);
+            //effectFXAA.setSize(window.innerWidth + 1, window.innerHeight + 1);
+            //customOutline.setSize(window.innerWidth + 1, window.innerHeight + 1);
+        }, true);
+
+        // FPS
+        function createStats() {
+            let stats = new Stats();
+            stats.setMode(0);
+
+            stats.domElement.style.position = 'absolute';
+            stats.domElement.style.left = '0';
+            stats.domElement.style.top = '0';
+
+            return stats;
+        }
+    </script>
+</body>
+
+</html>

@@ -10,8 +10,11 @@ Here you can find all the small projects I made during this class. Most of them 
 - [Day 03 - Clock / Time](https://mattsymetry.github.io/GENCG/day03.html)
 - [Day 04 - Drawing machine](https://mattsymetry.github.io/GENCG/day04.html)
 - [Day 05 - Drawing with gravity](https://mattsymetry.github.io/GENCG/day05.html)
+- [Day 06 - Faces](https://mattsymetry.github.io/GENCG/day06.html)
 
 ## Tools
 
 - [Three.js](https://threejs.org/)
 - [Tween.js](https://github.com/tweenjs/tween.js/)
+- [P5.js](https://p5js.org/)
+- [MediaPipe](https://google.github.io/mediapipe/)

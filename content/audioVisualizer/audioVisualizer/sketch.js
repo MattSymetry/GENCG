@@ -38,6 +38,7 @@ window.onmousedown = function(){
 };
 
 function draw() {
+
   // Change Shape
   if (Math.random()>0.998) {
     shapeIndex = Math.ceil(Math.random()*2)
@@ -58,8 +59,6 @@ function draw() {
   triangle.mids.color.x = (triangle.mids.color.x + Math.random()/20) % 100
   triangle.highs.color.x = (triangle.highs.color.x + Math.random()/10) % 100
 
-
-  //background(20);
   fft.analyze();
   fft.smooth();
   lows = map(fft.getEnergy("bass"), 0, 255, minSize, maxSize);
@@ -85,11 +84,12 @@ function draw() {
     triangle.dir.y = triangle.dir.y * -1;
   }
 
-  stroke(255)
+  strokeWeight(1)
+  stroke(0, 80)
   noFill();
 
   if (shapeIndex === 1) { // Circle
-    noStroke();
+    //noStroke();
     fill(triangle.lows.color.x, triangle.lows.color.y, triangle.lows.color.z);
     circle(Math.cos(triangle.lows.angle) * radius + triangle.currPos.x, Math.sin(triangle.lows.angle) * radius + triangle.currPos.y, lows);
     fill(triangle.mids.color.x, triangle.mids.color.y, triangle.mids.color.z);
@@ -98,7 +98,7 @@ function draw() {
     circle(Math.cos(triangle.highs.angle) * radius + triangle.currPos.x, Math.sin(triangle.highs.angle) * radius + triangle.currPos.y, highs);
   }
   else if (shapeIndex === 2) { // Square
-    noStroke();
+    //noStroke();
     fill(triangle.lows.color.x, triangle.lows.color.y, triangle.lows.color.z);
     rect(Math.cos(triangle.lows.angle) * radius + triangle.currPos.x - lows/2, Math.sin(triangle.lows.angle) * radius + triangle.currPos.y - lows/2, lows, lows);
     fill(triangle.mids.color.x, triangle.mids.color.y, triangle.mids.color.z);

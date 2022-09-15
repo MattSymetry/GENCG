@@ -5,10 +5,7 @@ function setup() {
   canvasSize = createVector(window.innerWidth,window.innerHeight);
   createCanvas(canvasSize.x, canvasSize.y);
   colorMode(HSB, 100);
-  audioIn = new p5.AudioIn();
-  audioIn.start(function () {
-    //audioIn.setSource(2);
-  });
+  // audioIn = new p5.AudioIn();
   fft = new p5.FFT();
   fft.setInput(audioIn);
 
@@ -26,8 +23,19 @@ function setup() {
   rotationDir = 1;
   shapeIndex = 2;
 
+  audioIn.start(function () {
+    //audioIn.setSource(2);
+  });
+
   //noLoop()
 }
+
+window.onmousedown = function(){
+  audioIn = new p5.AudioIn();
+  audioIn.start(function () {
+    //audioIn.setSource(2);
+  });
+};
 
 function draw() {
   // Change Shape

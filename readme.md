@@ -12,6 +12,7 @@ Here you can find all the small projects I made during this class. Most of them 
 - [Day 05 - Drawing with gravity](https://mattsymetry.github.io/GENCG/day05.html)
 - [Day 06 - Faces](https://mattsymetry.github.io/GENCG/day06.html)
 - [Day 07 - Pixels](https://mattsymetry.github.io/GENCG/day07.html)
+- [Final Project - AudioVisualizer](https://mattsymetry.github.io/GENCG/Final%20-%20AudioVisualizer.html)
 
 ## Tools
 
@@ -19,3 +20,9 @@ Here you can find all the small projects I made during this class. Most of them 
 - [Tween.js](https://github.com/tweenjs/tween.js/)
 - [P5.js](https://p5js.org/)
 - [MediaPipe](https://google.github.io/mediapipe/)
+
+## Key learnings
+- Importance of iterations
+- Don't judge the theme before you know it
+- Colors are more important than anything
+- Projects are NEVER finished

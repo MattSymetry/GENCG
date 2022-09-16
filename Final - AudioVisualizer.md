@@ -15,3 +15,7 @@ Then I added the feature that the direction of rotation can change randomly, and
 <iframe src="content/audioVisualizer/audioVisualizer/index.html" width="100%" height="450" frameborder="no"></iframe> {% endraw %}
 
 [FullScreen](https://mattsymetry.github.io/GENCG/content/audioVisualizer/audioVisualizer/index.html)
+
+## Example
+
+![Example Image](content/audioVisualizer/img1.png)

@@ -21,13 +21,14 @@
         import { FXAAShader } from "../../../template_three/js/three/FXAAShader.js";
         import { CustomOutlinePass } from '../../../template_three/js/rendering/customPostProcess.js';
       
+        // Create camera position
         let camPos = {
             coords : new THREE.Vector3(0, -0, 40),
             direction : new THREE.Vector3(0, 0, 0)
         }
         const yAxies = new THREE.Vector3(0, 1, 0)
 
-        // Setup
+        // Setup scene
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0xDFDFDF);
         const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
@@ -61,54 +62,36 @@
         );
         composer.addPass(customOutline);
 
-        // Antialias pass.
-        const effectFXAA = new ShaderPass(FXAAShader);
-        effectFXAA.uniforms["resolution"].value.set(
-        1 / (window.innerWidth+1),
-        1 / (window.innerHeight+1)
-        );
-        //composer.addPass(effectFXAA);
-
         // Objects
         const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
         directionalLight.position.set(20, 20, 0)
         scene.add( directionalLight );
-
-       createScene(THREE, scene);
+        createScene(THREE, scene); // Calls script.js
 
         // Animate
-        let now;
-        let prev;
-        let deltaTime;
-        let angle;
         let i = 0;
         function animate() {
             requestAnimationFrame(animate);
-            prev = now;
-            now = Date.now();
-            deltaTime = (now - prev) / 1000;
             camera.lookAt(camPos.direction)
             camera.rotation.z = i;
             i+= 0.002;
 
             camera.position.set(camPos.coords.x, camPos.coords.y, camPos.coords.z);
 
-            myAnimation();
+            myAnimation(); // Calls script.js
 
             composer.render();
             stats.update();
         };
         animate();
 
-        // Reaize
+        // Resize
         window.addEventListener('resize', function (event) {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth + 1, window.innerHeight + 1);
 
-            renderer.setSize(window.innerWidth + 1, window.innerHeight + 1);
             composer.setSize(window.innerWidth + 1, window.innerHeight + 1);
-            //effectFXAA.setSize(window.innerWidth + 1, window.innerHeight + 1);
             customOutline.setSize(window.innerWidth + 1, window.innerHeight + 1);
         }, true);
 

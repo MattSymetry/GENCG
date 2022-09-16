@@ -9,6 +9,7 @@ function createScene(THREE, sce, cam) {
     raycaster = new THREE.Raycaster();
     pointer = new THREE.Vector2();
     let material = customColorsMaterial(THREE, [new THREE.Vector4(1.0,0,0,0.0), new THREE.Vector4(1.0,0.158,0.883,0.25), new THREE.Vector4(1,0.676,0.025,0.0), new THREE.Vector4(0.94,1,0.8,1)]);
+    // Create grid
     for(let x = -10; x <= 10; x++) {
         for(let y = -10; y <= 10; y++) {
             let xS = 1;
@@ -17,6 +18,7 @@ function createScene(THREE, sce, cam) {
             let geometry = new THREE.BoxGeometry(xS, yS, zS)
             let cube = new THREE.Mesh( geometry, material );
             cube.position.set(x,y-20,-(x+y));
+            // Leave some random spaces in the grid
             if (Math.random() > 0.2) {
                 cubes.push(cube);
                 scene.add( cube );
@@ -36,10 +38,7 @@ function myAnimation() {
     var intersects = raycaster.intersectObject(scene, true);
 
     if (intersects.length > 0) {
-        if (activeObject == intersects[0].object) {
-
-        }
-        else {
+        if (activeObject != intersects[0].object) {
             if (activeObject != null) {
                 moveDown(activeObject);
             }
@@ -66,12 +65,3 @@ function moveDown(obj) {
     .onUpdate( )
     .start();
 }
-
-/*
-x = right, front
-y = up/down (height)
-z = left,front
-
-
-
-*/

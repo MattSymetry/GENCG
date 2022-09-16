@@ -18,11 +18,6 @@
     <script src="../../../template_three/js/tween/tween.umd.js"></script>
     <div id="joyDiv"></div>
     <script type="module">
-        import { EffectComposer } from '../../../template_three/js/three/EffectComposer.js';
-        import { RenderPass } from '../../../template_three/js/three/RenderPass.js';
-        import { ShaderPass } from '../../../template_three/js/three/ShaderPass.js';
-        import { FXAAShader } from "../../../template_three/js/three/FXAAShader.js";
-        import { CustomOutlinePass } from '../../../template_three/js/rendering/customPostProcess.js';
 
         // Setup
         const scene = new THREE.Scene();
@@ -42,22 +37,13 @@
         const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
         directionalLight.position.set(0, 10000, 0)
         scene.add( directionalLight );
-
-       createScene(THREE, scene, camera);
+        createScene(THREE, scene, camera); // Calls script.js
 
         // Animate
-        let now;
-        let prev;
-        let deltaTime;
-        let angle;
-        let i = 0;
         function animate() {
             requestAnimationFrame(animate);
-            prev = now;
-            now = Date.now();
-            deltaTime = (now - prev) / 1000;
 
-            myAnimation();
+            myAnimation(); // Calls script.js
 
             controls.update();
             renderer.render( scene, camera );
@@ -70,11 +56,6 @@
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth + 1, window.innerHeight + 1);
-
-            renderer.setSize(window.innerWidth + 1, window.innerHeight + 1);
-            //composer.setSize(window.innerWidth + 1, window.innerHeight + 1);
-            //effectFXAA.setSize(window.innerWidth + 1, window.innerHeight + 1);
-            //customOutline.setSize(window.innerWidth + 1, window.innerHeight + 1);
         }, true);
 
         // FPS

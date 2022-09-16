@@ -8,6 +8,7 @@ function createScene(THREE, sce, cam) {
     camera = cam;
     scene = sce;
 
+    // Create random planets
     for(let i = 0; i< countPlanets; i++) {
         let mass = 1+Math.random()*maxSize;
         let geometry = new THREE.SphereGeometry( mass, 16, 8 );
@@ -21,6 +22,7 @@ function createScene(THREE, sce, cam) {
         planets.push({object: sphere, mass: mass, force: new THREE.Vector3(), color: color});
         scene.add( sphere );
     }
+    // Create big start/sun in the middle
     let mass = 50;
     let geometry = new THREE.SphereGeometry( mass, 16, 8 );
     let color = new THREE.Vector3(1,1,1);
@@ -28,11 +30,10 @@ function createScene(THREE, sce, cam) {
     let sphere = new THREE.Mesh( geometry, material );
     scene.add( sphere );
     planets.push({object: sphere, mass: mass, force: new THREE.Vector3(), color: color});
-
-    //myAnimation();
 }
 
 function myAnimation() {
+    // Each planet calculates its velocity by adding up all gravitational forces of each other planet
     planets.forEach(p1 => {
         planets.forEach(p2 => {
             if (p1 != p2) {
@@ -58,12 +59,7 @@ function myAnimation() {
             let mesh = new THREE.Mesh(line, material);
             scene.add(mesh);
 
-            // let geometry = new THREE.SphereGeometry( 2, 16, 8 );
-            // let material = customColorsMaterial(THREE, [new THREE.Vector4(0,0,0,0), new THREE.Vector4(p1.color.x,p1.color.y,p1.color.z,1)]);;
-            // let sphere = new THREE.Mesh( geometry, material );
-            // sphere.position.set(p1.object.position.x,p1.object.position.y,p1.object.position.z)
-            // scene.add( sphere );
-
+            // Remove planets when they are to far
             if (p1.object.x > 500 || p1.object.x < -500 ||
                 p1.object.y > 500 || p1.object.y < -500 ||
                 p1.object.z > 500 || p1.object.z < -500) {

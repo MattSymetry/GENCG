@@ -25,6 +25,7 @@ function createScene() {
   let correctionX = img.width/2
   let correctionY = img.height/2
   boxes = [];
+  // Add pixels that are visible on image into an array with x,y and random z
   for(let x = 0; x < img.width; x+= 5) {
     for(let y = 0; y < img.height; y+=5) {
       if (img.get(x,y)[3] > 250) {
@@ -32,7 +33,7 @@ function createScene() {
       }
     }
   }
-
+  // Add random cubes/pixels around the image to same array
   for(let x = -200; x < 200; x += 5) {
     for(let y = -200; y < 200; y += 5) {
       for(let z = -200; z < 200; z += 5) {
@@ -53,6 +54,7 @@ function draw() {
   cam.lookAt(0,0,0);
   img.loadPixels();
 
+  // Animate camera pan
   if (!goToStart) {
     let dx = endPos.x - cam.eyeX;
     cam.eyeX += dx * easing;
@@ -76,10 +78,10 @@ function draw() {
     }
   }
 
+  // Draw all cubes/pixels
   boxes.forEach(element => {
     translate(element.x, element.y, element.z);
     specularMaterial(map(element.x, -200, 200, 0, 255), map(element.y, -200, 200, 0, 255), map(element.z, -200, 200, 0, 255));
-    //sphere(5, 6, 3);
     box(5)
     translate(-element.x, -element.y, -element.z);
   });

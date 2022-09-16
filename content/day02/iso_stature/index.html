@@ -16,12 +16,8 @@
     <script src="../../../template_three/js/tween/tween.umd.js"></script>
     <div id="joyDiv"></div>
     <script type="module">
-        import { EffectComposer } from '../../../template_three/js/three/EffectComposer.js';
-        import { RenderPass } from '../../../template_three/js/three/RenderPass.js';
-        import { ShaderPass } from '../../../template_three/js/three/ShaderPass.js';
-        import { FXAAShader } from "../../../template_three/js/three/FXAAShader.js";
-        import { CustomOutlinePass } from '../../../template_three/js/rendering/customPostProcess.js';
       
+        // Create camera position
         let camPos = {
             coords : new THREE.Vector3(20, 20, 20),
             direction : new THREE.Vector3(0, 0, 0)
@@ -35,74 +31,21 @@
         camera.zoom = 40
         camera.updateProjectionMatrix();
         const renderer = customRenderer(THREE, camera, scene);
-        const stats = createStats();
         camera.position.set(camPos.coords.x, camPos.coords.y, camPos.coords.z);
         camera.lookAt(camPos.direction)
-        //camera.rotation.z = -Math.PI
 
         document.body.appendChild(renderer.domElement);
-        //document.body.appendChild(stats.domElement);
-
-        // Post Processing
-        const depthTexture = new THREE.DepthTexture();
-        const renderTarget = new THREE.WebGLRenderTarget(
-            window.innerWidth,
-            window.innerHeight,
-            {
-                depthTexture: depthTexture,
-                depthBuffer: true,
-            }
-        );
-
-        // Initial render pass.
-        const composer = new EffectComposer(renderer, renderTarget);
-        const pass = new RenderPass(scene, camera);
-        composer.addPass(pass);
-
-        // Outline pass.
-        const customOutline = new CustomOutlinePass(
-        new THREE.Vector2(window.innerWidth, window.innerHeight),
-        scene,
-        camera
-        );
-        //composer.addPass(customOutline);
-
-        // Antialias pass.
-        const effectFXAA = new ShaderPass(FXAAShader);
-        effectFXAA.uniforms["resolution"].value.set(
-        1 / (window.innerWidth),
-        1 / (window.innerHeight)
-        );
-        //composer.addPass(effectFXAA);
 
         // Objects
         const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
         directionalLight.position.set(0, -10, 100)
         scene.add( directionalLight );
-
-       createScene(THREE, scene, camera);
-
-       function render() {
-            composer.render();
-            stats.update();
-        }
+        createScene(THREE, scene, camera); // Calls script.js
 
         // Animate
-        let now;
-        let prev;
-        let deltaTime;
-        let angle;
-        let i = 0;
         function animate() {
-            //requestAnimationFrame(animate);
-            prev = now;
-            now = Date.now();
-            deltaTime = (now - prev) / 1000;
-
-            myAnimation();
-            //TWEEN.update();
-
-            render();
+            myAnimation(); // Calls script.js
+            renderer.render( scene, camera );
         };
         animate();
 
@@ -111,24 +54,7 @@
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth + 1, window.innerHeight + 1);
-
-            renderer.setSize(window.innerWidth + 1, window.innerHeight + 1);
-            composer.setSize(window.innerWidth + 1, window.innerHeight + 1);
-            //effectFXAA.setSize(window.innerWidth + 1, window.innerHeight + 1);
-            customOutline.setSize(window.innerWidth + 1, window.innerHeight + 1);
         }, true);
-
-        // FPS
-        function createStats() {
-            let stats = new Stats();
-            stats.setMode(0);
-
-            stats.domElement.style.position = 'absolute';
-            stats.domElement.style.left = '0';
-            stats.domElement.style.top = '0';
-
-            return stats;
-        }
     </script>
 </body>
 

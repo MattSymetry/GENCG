@@ -122,7 +122,6 @@ let faceTypes = {
             circle(keypoints[30][0],keypoints[30][1], keypoints[33][1] - keypoints[29][1])
 
             //Mouth
-
             beginShape();
             curveVertex(keypoints[48][0], keypoints[48][1]);
             curveVertex(keypoints[51][0], keypoints[51][1]);

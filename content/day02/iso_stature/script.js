@@ -10,6 +10,7 @@ function createScene(THREE, sce, cam) {
     let direction = new THREE.Vector3(0,0,0);
     let maxPos = new THREE.Vector3(-100,-100,-100);
     let minPos = new THREE.Vector3(0,0,0);
+    // Create each cube individually
     for (let i = 0; i<30; i++) {
         let rnd = Math.random();
         let leftover;
@@ -51,24 +52,14 @@ function createScene(THREE, sce, cam) {
         if (currPos.z > maxPos.z) maxPos.z = currPos.z;
 
     }
+
+    // Set new camera position to center all
     let camCorrection = minPos.add(maxPos);
     camCorrection.divideScalar(2)
     camCorrection.multiplyScalar(1)
-    console.log(camCorrection)
     camera.position.set(camCorrection.x+20, camCorrection.y+20, camCorrection.z+20);
 }
 
-
-let activeObject = null;
 function myAnimation() {
 
 }
-
-/*
-x = right, front
-y = up/down (height)
-z = left,front
-
-
-
-*/

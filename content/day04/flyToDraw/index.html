@@ -17,11 +17,6 @@
     <script src="../../../template_three/js/tween/tween.umd.js"></script>
     <div id="joyDiv"></div>
     <script type="module">
-        import { EffectComposer } from '../../../template_three/js/three/EffectComposer.js';
-        import { RenderPass } from '../../../template_three/js/three/RenderPass.js';
-        import { ShaderPass } from '../../../template_three/js/three/ShaderPass.js';
-        import { FXAAShader } from "../../../template_three/js/three/FXAAShader.js";
-        import { CustomOutlinePass } from '../../../template_three/js/rendering/customPostProcess.js';
         let camera;
         let myCam;
         // Movement
@@ -47,6 +42,7 @@
             if(e.key === ' ' || e.keyCode == '32') {dropDots = false;}
         })
       
+        // Create camera position
         let camPos = {
             coords : new THREE.Vector3(0, -25, 25),
             direction : new THREE.Vector3(0, 0, -1)
@@ -112,8 +108,7 @@
         const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
         directionalLight.position.set(20, 100,10)
         scene.add( directionalLight );
-
-        createScene(THREE, scene, camera);
+        createScene(THREE, scene, camera); // Calls script.js
 
         // Animate
         let now = Date.now();
@@ -134,7 +129,9 @@
             myCam.getWorldDirection( camPos.direction );
             camPos.direction.normalize();
 
+            // Move
             camPos.coords.addVectors(camPos.coords, camPos.direction.multiplyScalar(deltaTime*speed));
+            // Collision
             if (camPos.coords.x > 25) camPos.coords.x = 25;
             if (camPos.coords.y > 25) camPos.coords.y = 25;
             if (camPos.coords.z > 25) camPos.coords.z = 25;
@@ -142,6 +139,7 @@
             if (camPos.coords.y < -25) camPos.coords.y = -25;
             if (camPos.coords.z < -25) camPos.coords.z = -25;
             
+            // Add rotations
             if (pressW) {
                 angle = Math.PI / 4 * deltaTime * rotationSpeed;
                 myCam.rotation.x += angle;
@@ -166,6 +164,7 @@
                 scene.add( sphere );
             }
 
+            // Update cameras
             for ( let ii = 0; ii < views.length; ++ ii ) {
 
                 const view = views[ ii ];
@@ -199,11 +198,6 @@
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth + 1, window.innerHeight + 1);
-
-            renderer.setSize(window.innerWidth + 1, window.innerHeight + 1);
-            composer.setSize(window.innerWidth + 1, window.innerHeight + 1);
-            //effectFXAA.setSize(window.innerWidth + 1, window.innerHeight + 1);
-            customOutline.setSize(window.innerWidth + 1, window.innerHeight + 1);
         }, true);
 
         // FPS

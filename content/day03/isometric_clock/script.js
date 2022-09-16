@@ -14,13 +14,6 @@ function createScene(THREE, sce, cam) {
     scene = sce;
     raycaster = new THREE.Raycaster();
     pointer = new THREE.Vector2();
-    let materiall = customColorsMaterial(THREE, [
-        new THREE.Vector4(189/255,178/255,255/255,0.0),
-        new THREE.Vector4(189/255,178/255,255/255,0.5), //Front
-        new THREE.Vector4(155/255,246/255,255/255,0.5),
-        new THREE.Vector4(155/255,246/255,255/255,0.6), // Left
-        new THREE.Vector4(255/255,173/255,173/255,0.61),
-        new THREE.Vector4(255/255,173/255,173/255,1)]); // Up
 
     let material = customColorsMaterial(THREE, [
         new THREE.Vector4(255/255,255/255,255/255,0.0),
@@ -29,6 +22,8 @@ function createScene(THREE, sce, cam) {
         new THREE.Vector4(0/255,0/255,0/255,0.6), // Left
         new THREE.Vector4(0/255,0/255,0/255,0.61),
         new THREE.Vector4(0/255,0/255,0/255,1)]); // Up
+    
+    // Create "wall" out of cubes
     for(let x = -8; x <= 8; x++) {
         for(let y = -5; y <= 5; y++) {
             let xS = 1;
@@ -40,6 +35,7 @@ function createScene(THREE, sce, cam) {
             cube.position.set(x,y,0);
             cubes.push(cube);
             scene.add( cube );
+            // Add cubes to timeBlocks objects if needed
             // H1
             if (x == -7) {
                 if (y == -4) timeBlocks.h1[1] = cube;
@@ -108,7 +104,7 @@ function createScene(THREE, sce, cam) {
         }
     }
 }
-// 1 1 : 1 1 : 1 1 
+
 function myAnimation() {
 }
 
@@ -121,6 +117,7 @@ window.setInterval(function(){
     let s1 = Math.floor(date.getSeconds()/10);
     let s2 = date.getSeconds()%10;
 
+    // Set time by moving specific cubes in/out
     // H1
     for (let i in timeBlocks.h1) {
         if (i <= h1) {
@@ -196,12 +193,3 @@ function moveDown(obj) {
     .onUpdate( )
     .start();
 }
-
-/*
-x = right, front
-y = up/down (height)
-z = left,front
-
-
-
-*/

@@ -186,7 +186,6 @@ function drawFaces(faces, filled) {
   }
   stroke(250)
   currentShape(faces)
-  console.log(faces)
 }
 
 // reduces the number of keypoints to the desired set
@@ -218,7 +217,6 @@ function draw() {
 
       myFaces = _faces.map((x) => packFace(x, VTX)); // update the global myFaces object with the detected faces
 
-      // console.log(myFaces);
       if (!myFaces.length) {
         // haven't found any faces
         statusText = "Show some faces!";

@@ -45,7 +45,7 @@
         createScene(THREE, scene, camera); // Calls script.js
 
        function render() {
-            composer.render();
+            renderer.render(scene,camera);
             stats.update();
         }
 

@@ -1,11 +1,11 @@
 # Day 04 - Drawing machine
 
-Todays theme is drawin machines. After a quick internet research, I only found 2D atuff. But since I am way more interessted in 3D, I had to come up with something myself.
-I started to think about how it would be possible to draw in 3D space. So I came up with the idea of flying around in first person view, and being able to leave behinde a path. 
+Today's theme is drawing machines. After a quick internet research, I only found 2D stuff. But since I am way more interested in 3D, I had to come up with something myself.
+I started to think about how it would be possible to draw in 3D space. So I came up with the idea of flying around in first person view, and being able to leave behind a path. 
 
 You can now fly inside a 50x50x50 cube. You constantly move forward. You can use WASD to fly rotate UP/DOW/LEFT/RIGHT. While pressing the space bar, you create the path.
 
-On the left half of the screen, you can see the first person view in which you are drawing. On the rigth side, you can see the artwork from a stationary camera, which can be moved around with orbit conrol. (The performance might not be the best, sorry for that :/ )
+On the left half of the screen, you can see the first person view in which you are drawing. On the right side, you can see the artwork from a stationary camera, which can be moved around with orbit control. (The performance might not be the best, sorry for that :/ )
 
 ## FlyToDraw
 {% raw %}

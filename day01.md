@@ -1,11 +1,11 @@
 # Day 01 - Getting back into it
 The class started by [Guillaume Massol](https://twitter.com/g_massol) introducing himself. Then he briefly went over how the class will take place.
-He then went over the history of generative art and some interessting artits that were and still are very influential.
+He then went over the history of generative art and some interesting artists that were and still are very influential.
 
-After that, he showed us some interesting artits which might give some more inspiration in the future. For me, [Kjetil Golid](https://twitter.com/kGolid) seemed very cool!
+After that, he showed us some interesting artists which might give some more inspiration in the future. To me, [Kjetil Golid](https://twitter.com/kGolid) seemed very cool!
 
 ## Computing without computer
-To start out, we made a few Conditional Designs with pen and paper. This helped me to get my mind back into understanding and thinking about how random things can turn out when certain conditions are given. We got the ideas from [conditionaldesign.org](https://conditionaldesign.org/archive/).
+To start out, we made a few Conditional Designs with pen and paper. This helped me to get my mind back into understanding and thinking about how random things can turn out when certain conditions are given. We got those ideas from [conditionaldesign.org](https://conditionaldesign.org/archive/).
 
 ![Example Image](content/day01/img1.png)
 ![Example Image](content/day01/img2.png)

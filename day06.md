@@ -1,6 +1,6 @@
 # Day 06 - Faces
 
-When I first heared the theme, I honetly wasn't exited since I simply had no clue on what to do with it. But then Guillaume showed us the MediaPipe face-tracking library and it instantly caught my attention.
+When I first heard the theme, I honestly wasn't excited since I simply had no clue on what to do with it. But then Guillaume showed us the MediaPipe face-tracking library, and it instantly caught my attention.
 
 Once that was up and running, I simply had a mask tracked on my face with some specific points. 
 
